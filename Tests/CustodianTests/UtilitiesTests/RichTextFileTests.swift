@@ -9,8 +9,9 @@
 @testable import Custodian
 import XCTest
 
-final class TextFileTests: XCTestCase {
+final class RichTextFileTests: XCTestCase {
 	func testIndex() {
+		XCTFail()
 		#if os(macOS)
 			let fileUrl = URL(
 				fileURLWithPath: NSString("~/Workspace/MSc/TestDocs/test.txt").expandingTildeInPath
@@ -26,4 +27,6 @@ final class TextFileTests: XCTestCase {
 
 		XCTAssertEqual(actual, expected)
 	}
+
+	func test() {}
 }
