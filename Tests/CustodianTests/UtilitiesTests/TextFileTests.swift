@@ -26,6 +26,4 @@ final class TextFileTests: XCTestCase {
 
 		XCTAssertEqual(actual, expected)
 	}
-
-	func test() {}
 }

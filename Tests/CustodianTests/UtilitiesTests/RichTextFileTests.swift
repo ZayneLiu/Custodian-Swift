@@ -27,6 +27,4 @@ final class RichTextFileTests: XCTestCase {
 
 		XCTAssertEqual(actual, expected)
 	}
-
-	func test() {}
 }
