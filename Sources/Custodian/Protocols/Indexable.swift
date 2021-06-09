@@ -11,5 +11,6 @@ protocol Indexable {
 	var thumbnail: [String: Int] { get set }
 	var lines: [String] { get set }
 
+	@available(macOS 10.11, *)
 	func index() throws
 }
