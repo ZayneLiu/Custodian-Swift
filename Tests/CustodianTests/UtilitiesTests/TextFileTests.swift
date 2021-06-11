@@ -10,20 +10,26 @@
 import XCTest
 
 final class TextFileTests: XCTestCase {
-	func testIndex() {
-		#if os(macOS)
-			let fileUrl = URL(
-				fileURLWithPath: NSString("~/Workspace/MSc/TestDocs/test.txt").expandingTildeInPath
-			)
-		#else
-			// let fileUrl = URL("")
-		#endif
+	#if os(macOS)
+		let fileUrl = URL(
+			fileURLWithPath: NSString("~/Workspace/MSc/TestDocs/test.txt").expandingTildeInPath
+		)
+	#else
 
+	#endif
+
+	func testIndex() {
 		let file = TextFile(url: fileUrl)
 		file.index()
 		let expected = 3
 		let actual = file.thumbnail["dreadful"]
 
 		XCTAssertEqual(actual, expected)
+	}
+
+	func testSearch() {
+		let file = TextFile(url: fileUrl)
+		file.index()
+		XCTFail()
 	}
 }
