@@ -9,8 +9,10 @@
 import XCTest
 
 final class FileTests: XCTestCase {
+	let folder = Folder(url: URL(fileURLWithPath: "~/Workspace/", isDirectory: true))
+	let url = URL(fileURLWithPath: "~/Workspace/TODO.org")
+
 	func testFields() {
-		let url = URL(fileURLWithPath: "~/Workspace/TODO.org")
 		let file = File(url: url)
 
 		XCTAssertEqual(file.ext, "org", "get file ext failed")
