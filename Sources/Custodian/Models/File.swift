@@ -7,7 +7,7 @@
 
 import Foundation
 
-class File: Equatable, Indexable {
+class File: Equatable, Searchable, Indexable {
 	/// File name.
 	var name: String
 	/// File type, (Aduio / Text).
@@ -18,27 +18,23 @@ class File: Equatable, Indexable {
 	var ext: String
 	/// A dictionary of each word and its occurances in a specific file.
 	var thumbnail: [String: Int] = [:]
-	/// All lines in current file.
-	var lines: [String] = []
+	/// A set of unique words appeared in file.
+	var wordSet = Set<String>()
+	/// The containing folder of the file, (nested directories are ignored)
+	var containingFolder: Folder?
+
+	#warning("strucutral change for index, to include location info")
 
 	static func == (lhs: File, rhs: File) -> Bool {
 		lhs.url == rhs.url
 	}
 
-	init(url: URL) {
+	init(url: URL, containingFolder: Folder? = nil) {
+		self.containingFolder = containingFolder
 		self.url = url
 		name = self.url.lastPathComponent
 		type = FileType.Text
 		ext = url.pathExtension
-	}
-
-//
-//	func hash(into hasher: inout Hasher) {
-//		#warning("hash function")
-//		hasher.finalize()
-//	}
-	func index() throws {
-		throw NotImplementedError()
 	}
 
 	/// Add a word to `thumbnail`.
@@ -53,6 +49,21 @@ class File: Equatable, Indexable {
 		} else {
 			thumbnail[key] = 1
 		}
+	}
+
+	// All things not inplemented
+
+	@available(macOS 10.14, *)
+	func index() { print("Not Implemented!!") }
+
+	func search(keyword _: String) -> [String: Any] {
+		print("Not Implemented!!")
+		return [:]
+	}
+
+	func deepSearch(keyword _: String) -> [String: Any] {
+		print("Not Implemented!!")
+		return [:]
 	}
 }
 
