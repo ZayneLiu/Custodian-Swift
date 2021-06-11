@@ -34,7 +34,9 @@ class TextFile: File {
 				wordSet.insert(word)
 
 				// Conataining folder's keywords index
-				if containingFolder!.thumbnail.keys.contains(word) {
+				if containingFolder != nil,
+				   containingFolder!.thumbnail.keys.contains(word)
+				{
 					containingFolder!.thumbnail[word]!.append(self)
 				}
 			}
