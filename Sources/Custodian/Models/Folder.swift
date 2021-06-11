@@ -8,37 +8,36 @@
 import Foundation
 
 class Folder: Indexable {
-	var thumbnail: [String: Int] = [:]
 	var lines: [String] = []
 	var name: String = ""
 	var url: URL
 	var files: [File] = []
+	/// which word appeared in which file
+	var thumbnail: [String: [File]] = [:]
 
 	init(url: URL) {
 		self.url = url
 		name = url.lastPathComponent
 	}
+}
 
-	@available(macOS 10.11, *)
+extension Folder {
+	@available(macOS 10.14, *)
 	func index() throws {
 		let fileManager = FileManager.default
-//		let enumerator = try! fileManager.enumerator(atPath: url.path)
 
-		let enumerator = fileManager.enumerator(
-			atPath: url.path
-//			,
-//			includingPropertiesForKeys: [.nameKey],
-//			options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles
-		)!
+		let enumerator = fileManager.enumerator(atPath: url.path)!
 
 		for case let item as String in enumerator {
 			let fileUrl = url.appendingPathComponent(item)
 
-			if !fileUrl.hasDirectoryPath, !fileUrl.lastPathComponent.starts(with: ["."]) {
-				files.append(File(url: fileUrl))
+			// Skip directories and hidden files, `.xxx`
+			if !fileUrl.hasDirectoryPath,
+			   !fileUrl.lastPathComponent.starts(with: ["."])
+			{
+				#warning("call factory")
+				files.append(File(url: fileUrl, containingFolder: self))
 			}
 		}
-
-		print(files)
 	}
 }
