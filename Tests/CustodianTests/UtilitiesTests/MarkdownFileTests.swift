@@ -12,19 +12,19 @@ import XCTest
 final class MarkdownFileTests: XCTestCase {
 	func testIndex() {
 		XCTFail()
-		#if os(macOS)
-			let fileUrl = URL(
-				fileURLWithPath: NSString("~/Workspace/MSc/TestDocs/test.txt").expandingTildeInPath
-			)
-		#else
-			// let fileUrl = URL("")
-		#endif
-
-		let file = TextFile(url: fileUrl)
-		file.index()
-		let expected = 3
-		let actual = file.thumbnail["dreadful"]
-
-		XCTAssertEqual(actual, expected)
+//		#if os(macOS)
+//			let fileUrl = URL(
+//				fileURLWithPath: NSString("~/Workspace/MSc/TestDocs/test.txt").expandingTildeInPath
+//			)
+//		#else
+//			// let fileUrl = URL("")
+//		#endif
+//
+//		let file = TextFile(url: fileUrl)
+//		file.index()
+//		let expected = 3
+//		let actual = file.thumbnail["dreadful"]
+//
+//		XCTAssertEqual(actual, expected)
 	}
 }
