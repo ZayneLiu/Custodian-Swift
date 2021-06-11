@@ -9,8 +9,7 @@ import Foundation
 
 protocol Indexable {
 	var thumbnail: [String: Int] { get set }
-	var lines: [String] { get set }
 
-	@available(macOS 10.11, *)
+	@available(macOS 10.14, *)
 	func index() throws
 }
