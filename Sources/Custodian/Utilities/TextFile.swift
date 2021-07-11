@@ -10,37 +10,36 @@ import NaturalLanguage
 
 extension File {}
 
+@available(macOS 10.15, *)
 class TextFile: File {
-	@available(macOS 10.14, *)
 	override func index() {
+		print("Indexing `.\(ext)` file `\(name)`")
 		// Read `.txt` file content
-		let fileContent: String = try! String(
+		fileContent = try! String(
 			contentsOfFile: url.path,
 			encoding: String.Encoding.utf8
 		)
 
-		let wordTokenizer = NLTokenizer(unit: .word)
-		wordTokenizer.string = fileContent
-		// Enumerate every word in the file.
-		wordTokenizer.enumerateTokens(in: fileContent.startIndex ..< fileContent.endIndex) { wordTokenRange, _ in
-			let word = fileContent[wordTokenRange].lowercased()
+		let sentenceTokenizer = NLTokenizer(unit: .sentence)
+		sentenceTokenizer.string = fileContent
+		// Enumerate every sentence in the file.
+		sentenceTokenizer.enumerateTokens(in: fileContent.startIndex ..< fileContent.endIndex) { sentenceIndex, _ in
 
-			#warning("Highly experimental")
-			if word.count <= 2 { return true }
+			let sentence = String(fileContent[sentenceIndex])
 
-			addToThumbnail(s: word)
+			let wordTokenizer = NLTokenizer(unit: .word)
+			wordTokenizer.string = sentence
+			// Enumerate every word in the sentence.
+			wordTokenizer.enumerateTokens(in: sentence.startIndex ..< sentence.endIndex) { wordIndex, _ in
+				let word = sentence[wordIndex].lowercased()
 
-			if !wordSet.contains(word) {
-				wordSet.insert(word)
+				#warning("Highly experimental, ignore words shorter than 2 characters")
+				if word.count <= 2 { return true }
 
-				// Conataining folder's keywords index
-				if containingFolder != nil,
-				   containingFolder!.thumbnail.keys.contains(word)
-				{
-					containingFolder!.thumbnail[word]!.append(self)
-				}
+				addToThumbnail(s: word, index: sentenceIndex)
+
+				return true
 			}
-
 			return true
 		}
 	}
