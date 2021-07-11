@@ -7,8 +7,8 @@
 
 import Foundation
 
-class Folder: Indexable {
-	var lines: [String] = []
+@available(macOS 10.15, *)
+class Folder: Indexable, ObservableObject {
 	var name: String = ""
 	var url: URL
 	var files: [File] = []
@@ -35,13 +35,12 @@ class Folder: Indexable {
 //		_folders[url.hashValue] = folder
 //	}
 // }
+
+@available(macOS 10.15, *)
 extension Folder {
-	@available(macOS 10.14, *)
 	func index() throws {
 		let fileManager = FileManager.default
-
 		let enumerator = fileManager.enumerator(atPath: url.path)!
-
 		for case let item as String in enumerator {
 			let fileUrl = url.appendingPathComponent(item)
 
@@ -49,12 +48,15 @@ extension Folder {
 			if !fileUrl.hasDirectoryPath,
 			   !fileUrl.lastPathComponent.starts(with: ["."])
 			{
-				#warning("call factory")
-				files.append(File(url: fileUrl, containingFolder: self))
+				let file = FileFactory.createFile(url: fileUrl, folderUrl: url)
+				file.index()
+
+				files.append(file)
 			}
 		}
 	}
 }
+
 //		Folder.getFolders.updateValue(self, forKey: url.hashValue)
 
 //	static func getFolder(url: URL) -> Folder {
