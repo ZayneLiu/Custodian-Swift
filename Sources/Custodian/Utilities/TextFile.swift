@@ -47,7 +47,6 @@ class TextFile: File {
 //	#warning("update folder index")
 //			if !wordSet.contains(word) {
 //				wordSet.insert(word)
-//
 //				// Conataining folder's keywords index
 //				if containingFolderUrl != nil {
 //					var folder = Folder.getFolder(url: containingFolderUrl!)
@@ -56,8 +55,9 @@ class TextFile: File {
 //				}
 //			}
 
-	override func search(keyword: String) -> [String: Any] {
-		keyword
-		return [:]
+	override func search(keyword: String) -> SearchResult {
+		let occurrences = thumbnail[keyword]!
+
+		return SearchResult(file: self, keyword: keyword, occurances: occurrences)
 	}
 }
