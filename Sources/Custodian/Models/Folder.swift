@@ -9,6 +9,8 @@ import Foundation
 
 @available(macOS 10.15, *)
 class Folder: Indexable, ObservableObject {
+	private static var folders: [URL: Folder] = [:]
+
 	var name: String = ""
 	var url: URL
 	var files: [File] = []
