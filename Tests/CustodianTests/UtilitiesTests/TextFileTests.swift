@@ -22,7 +22,7 @@ final class TextFileTests: XCTestCase {
 		let file = TextFile(url: fileUrl)
 		file.index()
 		let expected = 3
-		let actual = file.thumbnail["dreadful"]
+		let actual = file.thumbnail["dreadful"]!.count
 
 		XCTAssertEqual(actual, expected)
 	}
@@ -30,6 +30,13 @@ final class TextFileTests: XCTestCase {
 	func testSearch() {
 		let file = TextFile(url: fileUrl)
 		file.index()
-		XCTFail()
+
+		let keyword = "dreadful"
+
+		let searchResult = file.search(keyword: keyword)
+		let resultingSentence = searchResult.file.fileContent[searchResult.occurances[0]]
+		let actual = resultingSentence.contains(keyword)
+
+		XCTAssertTrue(actual)
 	}
 }
