@@ -11,7 +11,5 @@ protocol Searchable {
 //	var thumbnail: [String: Int] { get set }
 //	var lines: [String] { get set }
 
-
-	func search(keyword:String)->[String:Any]
-	func deepSearch(keyword:String)->[String:Any]
+	func search(keyword: String) -> SearchResult
 }

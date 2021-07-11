@@ -54,18 +54,11 @@ class File: Equatable, Searchable, Indexable {
 	}
 
 	// All things not inplemented
-
 	@available(macOS 10.14, *)
 	func index() { print("Not Implemented!!") }
 
-	func search(keyword _: String) -> [String: Any] {
-		print("Not Implemented!!")
-		return [:]
-	}
-
-	func deepSearch(keyword _: String) -> [String: Any] {
-		print("Not Implemented!!")
-		return [:]
+	func search(keyword _: String) -> SearchResult {
+		fatalError("Not Implemented!! Must be overrided.")
 	}
 }
 
