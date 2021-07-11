@@ -45,6 +45,18 @@ class TextFile: File {
 		}
 	}
 
+//	#warning("update folder index")
+//			if !wordSet.contains(word) {
+//				wordSet.insert(word)
+//
+//				// Conataining folder's keywords index
+//				if containingFolderUrl != nil {
+//					var folder = Folder.getFolder(url: containingFolderUrl!)
+//
+//					if folder.thumbnail.keys.contains(word) { folder.thumbnail[word]!.append(self) }
+//				}
+//			}
+
 	override func search(keyword: String) -> [String: Any] {
 		keyword
 		return [:]

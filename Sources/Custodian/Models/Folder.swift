@@ -21,6 +21,20 @@ class Folder: Indexable {
 	}
 }
 
+// @available(macOS 10.15, *)
+// extension Folder {
+//	static var getFolders: [Int: Folder] {
+//		get { folders }
+//		set { folders = newValue }
+//	}
+//
+//	/// - Parameter key: Folder URL.
+//	/// - Parameter value: Updated Folder instance.
+//	static func updateFolders(url: URL, folder: Folder) {
+//		var _folders = getFolders
+//		_folders[url.hashValue] = folder
+//	}
+// }
 extension Folder {
 	@available(macOS 10.14, *)
 	func index() throws {
@@ -41,3 +55,10 @@ extension Folder {
 		}
 	}
 }
+//		Folder.getFolders.updateValue(self, forKey: url.hashValue)
+
+//	static func getFolder(url: URL) -> Folder {
+//		print(url.hashValue)
+//		var a = folders
+//		return folders[url.hashValue]!
+//	}
