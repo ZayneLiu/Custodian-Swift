@@ -7,13 +7,14 @@
 
 import Foundation
 
-class File: Equatable, Searchable, Indexable {
+@available(macOS 10.15, *)
+public class File: Equatable, Searchable, Indexable {
 	/// File name.
 	var name: String
 	/// File type, (Aduio / Text).
-	var type: FileType
+	public var type: FileType
 	/// File URL.
-	var url: URL
+	public var url: URL
 	/// File extension.
 	var ext: String
 	/// A dictionary of each word and its occurances in a specific file.
@@ -25,16 +26,15 @@ class File: Equatable, Searchable, Indexable {
 
 	var fileContent: String = ""
 
-	#warning("strucutral change for index, to include location info")
-
-	static func == (lhs: File, rhs: File) -> Bool {
+	public static func == (lhs: File, rhs: File) -> Bool {
 		lhs.url == rhs.url
 	}
 
-	init(url: URL, containingFolderUrl: URL? = nil) {
+	public init(url: URL, containingFolderUrl: URL? = nil) {
 		self.containingFolderUrl = containingFolderUrl
 		self.url = url
 		name = self.url.lastPathComponent
+		#warning("File type")
 		type = FileType.Text
 		ext = url.pathExtension
 	}
@@ -53,16 +53,22 @@ class File: Equatable, Searchable, Indexable {
 		thumbnail[key]!.append(index)
 	}
 
-	// All things not inplemented
-	@available(macOS 10.14, *)
-	func index() { print("Not Implemented!!") }
+	// All things not implemented and to be overwritten
+
+	func index() {
+		print("Not Implemented!!")
+	}
 
 	func search(keyword _: String) -> SearchResult {
 		fatalError("Not Implemented!! Must be overrided.")
 	}
 }
 
-enum FileType {
+public enum FileType: String {
 	case Audio
+	case PDF
 	case Text
+	case Office_Word
+	case Office_Excel
+	case Office_PowerPoint
 }

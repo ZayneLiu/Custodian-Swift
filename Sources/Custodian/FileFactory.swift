@@ -7,6 +7,7 @@
 
 import Foundation
 
+@available(iOS 12.0, *)
 @available(macOS 10.15, *)
 class FileFactory {
 	private init() {}

@@ -8,10 +8,9 @@
 import Foundation
 import NaturalLanguage
 
-extension File {}
-
+@available(iOS 12.0, *)
 @available(macOS 10.15, *)
-class TextFile: File {
+public class TextFile: File {
 	override func index() {
 		print("Indexing `.\(ext)` file `\(name)`")
 		// Read `.txt` file content
@@ -34,7 +33,9 @@ class TextFile: File {
 				let word = sentence[wordIndex].lowercased()
 
 				#warning("Highly experimental, ignore words shorter than 2 characters")
-				if word.count <= 2 { return true }
+				if word.count <= 2 {
+					return true
+				}
 
 				addToThumbnail(s: word, index: sentenceIndex)
 
@@ -44,20 +45,21 @@ class TextFile: File {
 		}
 	}
 
-//	#warning("update folder index")
-//			if !wordSet.contains(word) {
-//				wordSet.insert(word)
-//				// Conataining folder's keywords index
-//				if containingFolderUrl != nil {
-//					var folder = Folder.getFolder(url: containingFolderUrl!)
-//
-//					if folder.thumbnail.keys.contains(word) { folder.thumbnail[word]!.append(self) }
-//				}
-//			}
+	//	#warning("update folder index")
+	//			if !wordSet.contains(word) {
+	//				wordSet.insert(word)
+	//				// Conataining folder's keywords index
+	//				if containingFolderUrl != nil {
+	//					var folder = Folder.getFolder(url: containingFolderUrl!)
+	//
+	//					if folder.thumbnail.keys.contains(word) { folder.thumbnail[word]!.append(self) }
+	//				}
+	//			}
 
 	override func search(keyword: String) -> SearchResult {
-		let occurrences = thumbnail[keyword]!
+		let occurrences = thumbnail.keys.contains(keyword) ? thumbnail[keyword]! : []
+		#warning("no match return type, and check")
 
-		return SearchResult(file: self, keyword: keyword, occurances: occurrences)
+		return SearchResult(file: self, keyword: keyword, occurrences: occurrences)
 	}
 }
