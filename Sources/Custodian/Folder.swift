@@ -55,8 +55,13 @@ extension Folder: Indexable {
 
 	public func search(keyword: String) -> [SearchResult] {
 		var res: [SearchResult] = []
+
 		files.forEach { file in
-			res.append(file.search(keyword: keyword.lowercased()))
+
+			let searchRes = file.search(keyword: keyword.lowercased())
+			if !searchRes.occurrences.isEmpty {
+				res.append(searchRes)
+			}
 		}
 
 		return res
