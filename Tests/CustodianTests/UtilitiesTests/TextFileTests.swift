@@ -6,6 +6,7 @@
 //
 
 // import Foundation
+
 @testable import Custodian
 import XCTest
 
@@ -34,7 +35,8 @@ final class TextFileTests: XCTestCase {
 		let keyword = "dreadful"
 
 		let searchResult = file.search(keyword: keyword)
-		let resultingSentence = searchResult.file.fileContent[searchResult.occurances[0]]
+
+		let resultingSentence = searchResult.occurrences[0].base
 		let actual = resultingSentence.contains(keyword)
 
 		XCTAssertTrue(actual)

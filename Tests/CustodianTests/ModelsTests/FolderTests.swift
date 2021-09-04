@@ -26,9 +26,28 @@ final class FolderTests: XCTestCase {
 
 	func testIndexFolderThumbnail() {
 		let folder = Folder(url: url)
-		try! folder.index()
 
-		var a = folder.thumbnail
+		do {
+			try folder.index()
+		} catch {
+			print(error)
+		}
+
+//		var a = Folder.getFolder(url: url).thumbnail
+
 		XCTFail()
+	}
+
+	func testFolderSearchFunction() {
+		let folder = Folder(url: url)
+
+		do {
+			try folder.index()
+		} catch {
+			print(error)
+		}
+
+		let a = folder.search(keyword: "Hamlet")
+		print(a[0].occurrences)
 	}
 }
