@@ -30,7 +30,6 @@ extension Folder: Indexable {
 	public func index() throws {
 		// iOS specific code to access selected folder
 		url.startAccessingSecurityScopedResource()
-		let supportedExts = ["txt"]
 
 		let fileManager = FileManager.default
 		let enumerator = fileManager.enumerator(atPath: url.path)!
@@ -40,8 +39,7 @@ extension Folder: Indexable {
 
 			// Skip directories and hidden files, `.xxx`
 			if !fileUrl.hasDirectoryPath,
-			   !fileUrl.lastPathComponent.starts(with: ["."]),
-			   supportedExts.contains(fileUrl.pathExtension)
+			   !fileUrl.lastPathComponent.starts(with: ["."])
 			{
 				let file = FileFactory.createFile(url: fileUrl, folderUrl: url)
 				file.index()
