@@ -18,7 +18,14 @@ final class FolderTests: XCTestCase {
 		let folder = Folder(url: url)
 		try! folder.index()
 
-		let expected = 15
+		// work out the number of files automatically
+		var expected = 0
+		for case let file as String in FileManager.default.enumerator(atPath: url.path)! {
+			let fileUrl = url.appendingPathComponent(file)
+			if !fileUrl.hasDirectoryPath,
+			   !fileUrl.lastPathComponent.starts(with: ["."]) { expected += 1 }
+		}
+
 		let actual = folder.files.count
 
 		XCTAssertEqual(expected, actual)
