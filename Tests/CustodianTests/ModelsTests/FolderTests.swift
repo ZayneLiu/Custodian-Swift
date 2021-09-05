@@ -43,7 +43,6 @@ final class FolderTests: XCTestCase {
 		}
 
 		let actual = folder.files.count
-
 		XCTAssertEqual(expected, actual)
 	}
 
@@ -56,7 +55,8 @@ final class FolderTests: XCTestCase {
 			print(error)
 		}
 
-//		var a = Folder.getFolder(url: url).thumbnail
+		// var a = Folder.getFolder(url: url).thumbnail
+		// TODO: implement folder level thumbnail.
 
 		XCTFail()
 	}
@@ -71,6 +71,6 @@ final class FolderTests: XCTestCase {
 		}
 
 		let a = folder.search(keyword: "Hamlet")
-		print(a[0].occurrences)
+		print("hits:", a[0].occurrences.count)
 	}
 }
