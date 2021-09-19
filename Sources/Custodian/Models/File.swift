@@ -41,27 +41,27 @@ public class File: Equatable, Searchable, Indexable {
 
 	/// Add a word to `thumbnail`.
 	func addToThumbnail(s: String, index: Range<String.Index>) {
-		#warning("Handle different forms of word")
-		// [n, v, adj, adv]
-		let key = s.trimmingCharacters(
-			in: .whitespaces.union(.punctuationCharacters)
-		)
+		let key = s.trimmingCharacters(in: .whitespaces.union(.punctuationCharacters))
 
-		if !thumbnail.keys.contains(key) {
-			thumbnail[key] = []
-		}
+		if !thumbnail.keys.contains(key) { thumbnail[key] = [] }
 		thumbnail[key]!.append(index)
 	}
 
+	func setThumbnail(data: [String: [Range<String.Index>]]) { thumbnail = data }
+
 	// All things not implemented and to be overwritten
+	func index() { print("Not Implemented!!") }
 
-	func index() {
-		print("Not Implemented!!")
+	func search(keyword _: String) -> SearchResult? { nil }
+}
+
+struct CustodianError: Error {
+	enum ErrorType {
+		case searchNotImplemented
 	}
 
-	func search(keyword _: String) -> SearchResult {
-		fatalError("Not Implemented!! Must be overrided.")
-	}
+	let msg: String
+	let type: ErrorType
 }
 
 public enum FileType: String {
