@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import NaturalLanguage
 
 @available(iOS 12.0, *)
 @available(macOS 10.15, *)
@@ -18,31 +17,9 @@ public class TextFile: File {
 			contentsOfFile: url.path,
 			encoding: String.Encoding.utf8
 		)
+		let res = StringTokenizer.Tokenize(content: fileContent)
 
-		let sentenceTokenizer = NLTokenizer(unit: .sentence)
-		sentenceTokenizer.string = fileContent
-		// Enumerate every sentence in the file.
-		sentenceTokenizer.enumerateTokens(in: fileContent.startIndex ..< fileContent.endIndex) { sentenceIndex, _ in
-
-			let sentence = String(fileContent[sentenceIndex])
-
-			let wordTokenizer = NLTokenizer(unit: .word)
-			wordTokenizer.string = sentence
-			// Enumerate every word in the sentence.
-			wordTokenizer.enumerateTokens(in: sentence.startIndex ..< sentence.endIndex) { wordIndex, _ in
-				let word = sentence[wordIndex].lowercased()
-
-				#warning("Highly experimental, ignore words shorter than 2 characters")
-				if word.count <= 2 {
-					return true
-				}
-
-				addToThumbnail(s: word, index: sentenceIndex)
-
-				return true
-			}
-			return true
-		}
+		setThumbnail(data: res)
 	}
 
 	//	#warning("update folder index")
