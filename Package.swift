@@ -24,6 +24,9 @@ let package = Package(
 			name: "Custodian",
 			dependencies: [
 				.product(name: "Ink", package: "Ink"),
+			],
+			resources: [
+				.copy("MLModels/DocumentClassifierDynamicEmbedding.mlmodelc"),
 			]
 		),
 		.testTarget(
