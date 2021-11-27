@@ -37,11 +37,15 @@ extension Folder: Indexable {
 		for case let item as String in enumerator {
 			let fileUrl = url.appendingPathComponent(item)
 
-			// Skip directories and hidden files, `.xxx`
+			// Skip sub directories
 			if !fileUrl.hasDirectoryPath,
+			   // Skip hidden files, `.xxx`
 			   !fileUrl.lastPathComponent.starts(with: ["."])
 			{
-				let file = FileFactory.createFile(url: fileUrl, folderUrl: url)
+				guard let file = FileFactory.indexFile(url: fileUrl, folderUrl: url) else {
+					// skip unsupported files
+					continue
+				}
 				file.index()
 
 				files.append(file)
@@ -56,7 +60,11 @@ extension Folder: Indexable {
 
 		files.forEach { file in
 
-			let searchRes = file.search(keyword: keyword.lowercased())
+			guard let searchRes = file.search(keyword: keyword.lowercased()) else {
+				// TODO: search not implemneted
+				print("`\(file.ext)` \tSearch Not Implemented!! Must be overrided.")
+				return
+			}
 			if !searchRes.occurrences.isEmpty {
 				res.append(searchRes)
 			}
