@@ -15,7 +15,7 @@ class FileFactory {
 
     static let allowedExt = ["txt", "md"]
 
-    static func createFile(url: URL, folderUrl: URL) -> File? {
+    static func indexFile(url: URL, folderUrl: URL) -> File? {
         let fileExt = url.pathExtension.lowercased()
         if allowedExt.contains(fileExt) {
             switch fileExt {
