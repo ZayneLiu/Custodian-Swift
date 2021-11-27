@@ -9,9 +9,8 @@ import Foundation
 
 @available(iOS 13.0, *)
 @available(macOS 10.15, *)
-public class Folder {
+public class Folder: Indexable {
 	private static var folders: [URL: Folder] = [:]
-
 	public var name: String = ""
 	public var url: URL
 	public var files: [File] = []
@@ -22,14 +21,10 @@ public class Folder {
 		self.url = url
 		name = url.lastPathComponent
 	}
-}
 
-@available(iOS 13.0, *)
-@available(macOS 10.15, *)
-extension Folder: Indexable {
 	public func index() throws {
 		// iOS specific code to access selected folder
-		url.startAccessingSecurityScopedResource()
+		let _ = url.startAccessingSecurityScopedResource()
 
 		let fileManager = FileManager.default
 		let enumerator = fileManager.enumerator(atPath: url.path)!
@@ -38,10 +33,8 @@ extension Folder: Indexable {
 			let fileUrl = url.appendingPathComponent(item)
 
 			// Skip sub directories
-			if !fileUrl.hasDirectoryPath,
-			   // Skip hidden files, `.xxx`
-			   !fileUrl.lastPathComponent.starts(with: ["."])
-			{
+			if !fileUrl.hasDirectoryPath, // Skip hidden files, `.xxx`
+					!fileUrl.lastPathComponent.starts(with: ["."]) {
 				guard let file = FileFactory.indexFile(url: fileUrl, folderUrl: url) else {
 					// skip unsupported files
 					continue
