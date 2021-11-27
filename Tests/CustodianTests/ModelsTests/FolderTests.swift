@@ -10,8 +10,8 @@ import XCTest
 
 final class FolderTests: XCTestCase {
 	let url = URL(
-		fileURLWithPath: NSString("~/Workspace/MSc/TestDocs/").expandingTildeInPath,
-		isDirectory: true
+			fileURLWithPath: NSString("~/Workspace/MSc/TestDocs/").expandingTildeInPath,
+			isDirectory: true
 	)
 
 	// func testIndexFileCount() {
@@ -38,8 +38,7 @@ final class FolderTests: XCTestCase {
 
 		for case let file as String in FileManager.default.enumerator(atPath: url.path)! {
 			let fileUrl = url.appendingPathComponent(file)
-			if FileFactory.allowedExt.contains(fileUrl.pathExtension.lowercased())
-			{ expected += 1 }
+			if FileFactory.allowedExt.contains(fileUrl.pathExtension.lowercased()) { expected += 1 }
 		}
 
 		let actual = folder.files.count
@@ -71,6 +70,7 @@ final class FolderTests: XCTestCase {
 		}
 
 		let a = folder.search(keyword: "Hamlet")
+		print("keyword:", "Hamlet")
 		print("hits:", a[0].occurrences.count)
 	}
 }

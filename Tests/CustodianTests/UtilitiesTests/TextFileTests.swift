@@ -13,7 +13,7 @@ import XCTest
 final class TextFileTests: XCTestCase {
 	#if os(macOS)
 		let fileUrl = URL(
-			fileURLWithPath: NSString("~/Workspace/MSc/TestDocs/test.txt").expandingTildeInPath
+				fileURLWithPath: NSString("~/Workspace/MSc/TestDocs/test.txt").expandingTildeInPath
 		)
 	#else
 
@@ -23,7 +23,7 @@ final class TextFileTests: XCTestCase {
 		let file = TextFile(url: fileUrl)
 		file.index()
 		let expected = 3
-		let actual = file.thumbnail["dreadful"]!.count
+		let actual   = file.thumbnail["dreadful"]!.count
 
 		XCTAssertEqual(actual, expected)
 	}
@@ -37,7 +37,7 @@ final class TextFileTests: XCTestCase {
 		let searchResult = file.search(keyword: keyword)
 
 		let resultingSentence = searchResult.occurrences[0].base
-		let actual = resultingSentence.contains(keyword)
+		let actual            = resultingSentence.contains(keyword)
 
 		XCTAssertTrue(actual)
 	}

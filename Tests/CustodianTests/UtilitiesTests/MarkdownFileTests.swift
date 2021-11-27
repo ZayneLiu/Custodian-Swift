@@ -6,25 +6,27 @@
 //
 
 // import Foundation
+
 @testable import Custodian
 import XCTest
 
 final class MarkdownFileTests: XCTestCase {
+	let fileUrl = URL(
+			fileURLWithPath: NSString("~/Workspace/MSc/TestDocs/Report Note.md").expandingTildeInPath
+	)
+
 	func testIndex() {
-		XCTFail()
-//		#if os(macOS)
-//			let fileUrl = URL(
-//				fileURLWithPath: NSString("~/Workspace/MSc/TestDocs/test.txt").expandingTildeInPath
-//			)
-//		#else
-//			// let fileUrl = URL("")
-//		#endif
-//
-//		let file = TextFile(url: fileUrl)
-//		file.index()
-//		let expected = 3
-//		let actual = file.thumbnail["dreadful"]
-//
-//		XCTAssertEqual(actual, expected)
+
+		let file = MarkdownFile(url: fileUrl)
+		file.index()
+
+		let expected = 3
+		let actual   = file.thumbnail["dreadful"]
+		// TODO: finish test
+		// XCTAssertEqual(actual, expected)
+	}
+
+	func testSearch() {
+		let file = MarkdownFile(url: fileUrl)
 	}
 }
