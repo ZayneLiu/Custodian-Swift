@@ -35,7 +35,7 @@ public class TextFile: File {
 
 	override func search(keyword: String) -> SearchResult {
 		let occurrences = thumbnail.keys.contains(keyword) ? thumbnail[keyword]! : []
-		#warning("no match return type, and check")
+		// TODO: no match return type, and check
 
 		return SearchResult(file: self, keyword: keyword, occurrences: occurrences)
 	}
