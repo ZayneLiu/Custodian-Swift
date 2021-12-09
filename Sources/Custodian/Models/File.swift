@@ -10,23 +10,23 @@ import Foundation
 @available(macOS 10.15, *)
 public class File: Equatable, Searchable, Indexable {
 	/// File name.
-	var name: String
+	public var name: String
 	/// File type, (Aduio / Text).
 	public var type: FileType
 	/// File URL.
 	public var url: URL
 	/// File extension.
-	var ext: String
+	public var ext: String
 	/// A dictionary of each word and its occurances in a specific file.
 	var thumbnail: [String: [Range<String.Index>]] = [:]
 	/// A set of unique words appeared in file.
 	var wordSet = Set<String>()
 	/// The containing folder of the file, (nested directories are ignored)
 	var containingFolderUrl: URL?
-
+	/// File content in readable string format
 	var fileContent: String = ""
 
-	public static func == (lhs: File, rhs: File) -> Bool {
+	public static func ==(lhs: File, rhs: File) -> Bool {
 		lhs.url == rhs.url
 	}
 
