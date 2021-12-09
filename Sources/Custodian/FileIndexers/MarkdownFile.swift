@@ -25,7 +25,7 @@ public class MarkdownFile: File {
             let html          = markdown.html
             let doc: Document = try SwiftSoup.parse(html)
 
-            print(try doc.text())
+            // print(try doc.text())
             fileContent = try doc.text()
             let res = StringTokenizer.Tokenize(content: fileContent)
 
