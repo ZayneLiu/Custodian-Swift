@@ -7,8 +7,8 @@
 
 import Foundation
 
-@available(iOS 13.0, *)
-@available(macOS 10.15, *)
+@available(iOS 15.0, *)
+@available(macOS 11.0, *)
 public class Folder: Indexable {
 	private static var folders: [URL: Folder] = [:]
 	public var name: String = ""
@@ -35,7 +35,8 @@ public class Folder: Indexable {
 			// Skip sub directories
 			if !fileUrl.hasDirectoryPath, // Skip hidden files, `.xxx`
 					!fileUrl.lastPathComponent.starts(with: ["."]) {
-				guard let file = FileFactory.indexFile(url: fileUrl, folderUrl: url) else {
+				guard let file = FileFactory.indexFile(url: fileUrl, folderUrl: url)
+				else {
 					// skip unsupported files
 					continue
 				}
@@ -53,7 +54,8 @@ public class Folder: Indexable {
 
 		files.forEach { file in
 
-			guard let searchRes = file.search(keyword: keyword.lowercased()) else {
+			guard let searchRes = file.search(keyword: keyword.lowercased())
+			else {
 				// TODO: search not implemneted
 				print("`\(file.ext)` \tSearch Not Implemented!! Must be overrided.")
 				return
