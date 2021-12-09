@@ -8,48 +8,43 @@
 import Foundation
 import NaturalLanguage
 import ZIPFoundation
+
 //import SwiftyXMLParser
+
 import Kanna
 
 //
 @available(iOS 15.0, *)
 @available(macOS 11.0, *)
-public class WordFile: File {
+public class Word: File {
 	override func index() {
 		print("Indexing `.\(ext)` file `\(name)`")
 
 		guard let archive = Archive(url: url, accessMode: .read, preferredEncoding: .utf8)
 		else { return }
-        
+
 		var documentXML = ""
-        
+
 		do {
-			 let _ =  try archive.extract(archive["word/document.xml"]!) { data in
+			let _ = try archive.extract(archive["word/document.xml"]!) { data in
 				documentXML = String(decoding: data, as: UTF8.self)
 			}
-            
-            if let doc = try? XML(xml: documentXML, encoding: .utf8){
-                let namespaces = [
-                    "o":"urn:schemas-microsoft-com:office:office",
-                    "w":"http://schemas.openxmlformats.org/wordprocessingml/2006/main",
-                ]
 
-                var lines:[String] = []
-                for node in doc.xpath("//w:p", namespaces: namespaces){
-                    lines.append(node.text!)
-                }
-        
-                // Read `.docx` file content
-                fileContent =  lines.joined(separator: "\n")
-            }
+			if let doc = try? XML(xml: documentXML, encoding: .utf8) {
+				let namespaces = [
+					"o": "urn:schemas-microsoft-com:office:office",
+					"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main",
+				]
+
+				var lines: [String] = []
+				for node in doc.xpath("//w:p", namespaces: namespaces) { lines.append(node.text!) }
+
+				// Read `.docx` file content
+				fileContent = lines.joined(separator: "\n")
+			}
 		} catch {
+			print(error.localizedDescription)
 		}
-
-		// Read `.txt` file content
-        // fileContent = try! String(
-        // contentsOfFile: url.path,
-        // encoding: String.Encoding.utf8
-        // )
 
 		let sentenceTokenizer = NLTokenizer(unit: .sentence)
 		sentenceTokenizer.string = fileContent
@@ -89,11 +84,9 @@ public class WordFile: File {
 	//	//				}
 	//	//			}
 	//
-    
-    
-    override func search(keyword: String) -> SearchResult? {
-        let occurrences = thumbnail.keys.contains(keyword) ? thumbnail[keyword]! : []
-        // TODO: no match return type, and check
-        return SearchResult(file: self, keyword: keyword, occurrences: occurrences)
-    }
+	override func search(keyword: String) -> SearchResult? {
+		let occurrences = thumbnail.keys.contains(keyword) ? thumbnail[keyword]! : []
+		// TODO: no match return type, and check
+		return SearchResult(file: self, keyword: keyword, occurrences: occurrences)
+	}
 }

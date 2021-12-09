@@ -7,7 +7,7 @@ import SwiftSoup
 
 @available(iOS 12, *)
 @available(macOS 10.15, *)
-public class HTMLFile: File {
+public class HTML: File {
 	override func index() {
 		print("Indexing `.\(ext)` file `\(name)`")
 

@@ -7,16 +7,12 @@
 
 import Foundation
 import NaturalLanguage
+import Kanna
 import ZIPFoundation
 
-//import SwiftyXMLParser
-
-import Kanna
-
-//
 @available(iOS 15.0, *)
 @available(macOS 11.0, *)
-public class PowerPointFile: File {
+public class PowerPoint: File {
 	override func index() {
 		print("Indexing `.\(ext)` file `\(name)`")
 
