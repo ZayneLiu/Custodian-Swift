@@ -9,7 +9,7 @@ import Foundation
 
 @available(iOS 12.0, *)
 @available(macOS 10.15, *)
-public class Txt: File {
+public class PlainText: File {
 	override func index() {
 		print("Indexing `.\(ext)` file `\(name)`")
 		// Read `.txt` file content
