@@ -12,14 +12,14 @@ import Foundation
 public class FileFactory {
 	private init() {}
 
-	static let allowedExt = ["txt", "md", "html", "docx", "pptx", "pdf"]
+	static let allowedExt = ["txt", "md", "html", "docx", "pptx", "pdf", "rtf"]
 
 	static func indexFile(url: URL, folderUrl: URL) -> File? {
 		let fileExt = url.pathExtension.lowercased()
 		if allowedExt.contains(fileExt) {
 			switch fileExt {
 				case "txt":
-					return Txt(url: url, containingFolderUrl: folderUrl)
+					return PlainText(url: url, containingFolderUrl: folderUrl)
 				case "md":
 					return Markdown(url: url, containingFolderUrl: folderUrl)
 				case "html":
@@ -30,6 +30,8 @@ public class FileFactory {
 					return PowerPoint(url: url, containingFolderUrl: folderUrl)
 				case "pdf":
 					return PDF(url: url, containingFolderUrl: folderUrl)
+            case "rtf":
+                return RichText(url: url, containingFolderUrl: folderUrl)
 				default:
 					break
 			}
