@@ -36,10 +36,10 @@ let package = Package(
 						.product(name: "ZIPFoundation", package: "ZIPFoundation"),
                         // .product(name: "SwiftyXMLParser", package: "SwiftyXMLParser")
                         .product(name: "Kanna", package: "Kanna")
-						//						.product(name: "ZipArchive", package: "ZipArchive"),
 					],
 					resources: [
 						.copy("MLModels/DocumentClassifierDynamicEmbedding.mlmodelc"),
+                        .copy("MLModels/DocumentClassifierDynamicEmbedding.mlmodel"),
 					]
 			),
 			.testTarget(
