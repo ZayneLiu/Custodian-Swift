@@ -52,7 +52,12 @@ public class File: Equatable, Searchable, Indexable {
 	// All things not implemented and to be overwritten
 	func index() { print("Not Implemented!!") }
 
-	func search(keyword _: String) -> SearchResult? { nil }
+	/// Default search for all file types
+	func search(keyword: String) -> SearchResult? {
+		let occurrences = thumbnail.keys.contains(keyword) ? thumbnail[keyword]! : []
+		// TODO: no match return type, and check
+		return SearchResult(file: self, keyword: keyword, occurrences: occurrences)
+	}
 }
 
 struct CustodianError: Error {
