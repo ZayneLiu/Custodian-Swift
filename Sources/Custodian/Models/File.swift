@@ -13,7 +13,7 @@ public class File: Equatable, Searchable, Indexable {
 	/// File name.
 	public var name: String
 	/// File type, (Aduio / Text).
-	public var type: FileType
+	public var type: String
 	/// File URL.
 	public var url: URL
 	/// File extension.
@@ -37,9 +37,8 @@ public class File: Equatable, Searchable, Indexable {
 		self.containingFolderUrl = containingFolderUrl
 		self.url = url
 		name = self.url.lastPathComponent
-		#warning("File type")
-		type = FileType.Text
 		ext = url.pathExtension
+		type = DocTypeMapping[ext] ?? "unknown"
 	}
 
 	/// Add a word to `thumbnail`.
