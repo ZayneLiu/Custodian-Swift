@@ -8,6 +8,7 @@
 @testable import Custodian
 import XCTest
 
+@available(iOS 15.0, *)
 final class FolderTests: XCTestCase {
 	let url = URL(
 			fileURLWithPath: NSString("~/Workspace/MSc/TestDocs/").expandingTildeInPath,

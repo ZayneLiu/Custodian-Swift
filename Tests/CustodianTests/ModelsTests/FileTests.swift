@@ -8,6 +8,7 @@
 @testable import Custodian
 import XCTest
 
+@available(iOS 15.0, *)
 final class FileTests: XCTestCase {
 	let folder = Folder(url: URL(fileURLWithPath: "~/Workspace/", isDirectory: true))
 	let url    = URL(fileURLWithPath: "~/Workspace/TODO.org")
