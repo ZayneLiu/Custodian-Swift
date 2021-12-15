@@ -15,12 +15,12 @@ public class PDF: File {
 
 		do {
 			fileContent = try doc.string!
-			let res = StringTokenizer.Tokenize(content: fileContent)
-
-			setThumbnail(data: res)
 		} catch {
 			print(error.localizedDescription)
 		}
+
+		let res = StringTokenizer.Tokenize(content: fileContent)
+		setThumbnail(data: res)
 	}
 
 	override func search(keyword: String) -> SearchResult? {
