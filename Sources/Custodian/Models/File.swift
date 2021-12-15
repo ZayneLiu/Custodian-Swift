@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreML
 
 @available(macOS 10.15, *)
 public class File: Equatable, Searchable, Indexable {
@@ -17,6 +18,8 @@ public class File: Equatable, Searchable, Indexable {
 	public var url: URL
 	/// File extension.
 	public var ext: String
+	/// Text Classification [NLP]
+	public var textClassification: String = ""
 	/// A dictionary of each word and its occurances in a specific file.
 	var thumbnail: [String: [Range<String.Index>]] = [:]
 	/// A set of unique words appeared in file.
@@ -49,8 +52,13 @@ public class File: Equatable, Searchable, Indexable {
 
 	func setThumbnail(data: [String: [Range<String.Index>]]) { thumbnail = data }
 
-	// All things not implemented and to be overwritten
+	/// All things not implemented and to be overwritten
 	func index() { print("Not Implemented!!") }
+
+	func classify() {
+		let model = try? DocumentClassifierDynamicEmbedding(configuration: MLModelConfiguration())
+		textClassification = try! model?.prediction(text: fileContent).label as! String
+	}
 
 	/// Default search for all file types
 	func search(keyword: String) -> SearchResult? {

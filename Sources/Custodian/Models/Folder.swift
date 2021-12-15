@@ -41,6 +41,7 @@ public class Folder: Indexable {
 					continue
 				}
 				file.index()
+                file.classify()
 
 				files.append(file)
 			}
