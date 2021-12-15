@@ -12,10 +12,7 @@ import Foundation
 public class FileFactory {
 	private init() {}
 
-	//    static let msDocExt =
-	static let allowedExt = [
-		"txt", "md", "html", "docx", "docm", "pptx", "pptm", "pdf", "rtf", "odt", "odp",
-	]
+	static let allowedExt = DocTypeMapping.keys
 
 	//    "xlsx"
 	static func indexFile(url: URL, folderUrl: URL) -> File? {
@@ -49,3 +46,4 @@ public class FileFactory {
 		return nil
 	}
 }
+
