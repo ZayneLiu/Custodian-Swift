@@ -11,9 +11,9 @@ public class PDF: File {
 	override func index() {
 		print("Indexing `.\(ext)` file `\(name)`")
 
-		let doc = PDFDocument(url: url)!
 
 		do {
+            let doc = PDFDocument(url: url)!
 			fileContent = try doc.string!
 		} catch {
 			print(error.localizedDescription)
