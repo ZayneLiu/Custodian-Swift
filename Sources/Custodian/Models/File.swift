@@ -27,7 +27,7 @@ public class File: Equatable, Searchable, Indexable {
 	/// The containing folder of the file, (nested directories are ignored)
 	var containingFolderUrl: URL?
 	/// File content in readable string format
-	var fileContent: String = ""
+	public var fileContent: String = ""
 
 	public static func ==(lhs: File, rhs: File) -> Bool {
 		lhs.url == rhs.url
