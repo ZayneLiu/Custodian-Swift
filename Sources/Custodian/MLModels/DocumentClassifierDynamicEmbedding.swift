@@ -64,6 +64,8 @@ class DocumentClassifierDynamicEmbedding {
 
 	/// URL of model assuming it was installed in the same bundle as this class
 	class var urlOfModelInThisBundle: URL {
+        // Make modifications to the generated swift class.
+        // return urlOfModelInThisBundle
 		return Bundle.module.url(forResource: "DocumentClassifierDynamicEmbedding", withExtension: "mlmodelc")!
 	}
 
